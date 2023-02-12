@@ -6,6 +6,8 @@ import com.softuni.battleshipsapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
 
@@ -23,6 +25,21 @@ public class AuthService {
         if(!registrationDTO.getPassword().equals(registrationDTO.getConfirmPassword())){
             return false;
         }
+        //duplicate email
+
+        Optional<User> byEmail = this.userRepository.findByEmail(registrationDTO.getEmail());
+        if(byEmail.isPresent()){
+            return false;
+        }
+
+        //duplicate username
+
+        Optional<User> byUsername = this.userRepository.findByUsername(registrationDTO.getUsername());
+        if(byUsername.isPresent()){
+            return false;
+        }
+
+
         User user = new User();
         user.setUsername(registrationDTO.getUsername());
         user.setFullName(registrationDTO.getFullName());
