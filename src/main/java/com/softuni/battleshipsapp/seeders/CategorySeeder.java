@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class CategorySeeder implements CommandLineRunner {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategorySeeder(CategoryRepository categoryRepository) {
